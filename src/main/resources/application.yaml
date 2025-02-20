@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: price-calculator
+
+database:
+  url: http://localhost:8080/postgres
+  username: root
+  password: root
