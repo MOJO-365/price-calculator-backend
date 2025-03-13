@@ -13,17 +13,17 @@ public class BatteryService {
 
     private BatteryUtil batteryUtil;
 
-    public BatteryService(BatteryUtil batteryUtil){
-        this.batteryUtil=batteryUtil;
+    public BatteryService(BatteryUtil batteryUtil) {
+        this.batteryUtil = batteryUtil;
     }
 
-    public PageResult<Battery> getBattery(GeneralQueryRequest generalQueryRequest){
-        return batteryUtil.getBattery(generalQueryRequest.getCompany(),generalQueryRequest.getPageNumber(),
-                generalQueryRequest.getPageSize(),generalQueryRequest.getColumns(),generalQueryRequest.getFilter(),
+    public PageResult<Battery> getBattery(GeneralQueryRequest generalQueryRequest) {
+        return batteryUtil.getBattery(generalQueryRequest.getCompany(), generalQueryRequest.getPageNumber(),
+                generalQueryRequest.getPageSize(), generalQueryRequest.getColumns(), generalQueryRequest.getFilter(),
                 generalQueryRequest.getOrderByColumns());
     }
 
-    public  String addBattery(PostQueryRequest postQueryRequest){
-        return batteryUtil.addBattery(postQueryRequest.getCompany(),postQueryRequest.getBattery());
+    public String addBattery(PostQueryRequest postQueryRequest) {
+        return batteryUtil.addBattery(postQueryRequest.getCompany(), postQueryRequest.getBattery());
     }
 }

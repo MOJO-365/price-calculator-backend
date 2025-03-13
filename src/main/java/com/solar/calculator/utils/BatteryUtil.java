@@ -20,26 +20,26 @@ public class BatteryUtil {
 
     private GlobalDatabase globalDatabase;
 
-    private final String BATTERY_TABLE="battery";
+    private final String BATTERY_TABLE = "battery";
 
     @Autowired
-    public BatteryUtil(GlobalDatabase globalDatabase){
-        this.globalDatabase=globalDatabase;
+    public BatteryUtil(GlobalDatabase globalDatabase) {
+        this.globalDatabase = globalDatabase;
     }
 
 
     public PageResult<Battery> getBattery(String company, Integer pageNumber, Integer pageSize, List<String> columns, Map<String, Pair<GlobalDatabase.FilterType, Object>> filter, Map<String, String> orderByColumns) {
-     return globalDatabase.executePaginatedQuery(company,BATTERY_TABLE,columns,orderByColumns,pageNumber,pageSize,filter, new BatteryRowMapper());
+        return globalDatabase.executePaginatedQuery(company, BATTERY_TABLE, columns, orderByColumns, pageNumber, pageSize, filter, new BatteryRowMapper());
     }
 
     public String addBattery(String company, Battery battery) {
-        String sql=String.format("INSERT INTO %s.battery (model, manufacturer, warranty_in_months, price, capacity_in_watt) \n" +
-                "VALUES (?, ?, ?, ?, ?);",company);
+        String sql = String.format("INSERT INTO %s.battery (model, manufacturer, warranty_in_months, price, capacity_in_watt) \n" +
+                "VALUES (?, ?, ?, ?, ?);", company);
         try {
-            globalDatabase.executeUpdate(sql,battery.getModelName(),battery.getManufacturer(),
-                    battery.getWarrantyInMonths(),battery.getPrice(),battery.getCapacity());
+            globalDatabase.executeUpdate(sql, battery.getModelName(), battery.getManufacturer(),
+                    battery.getWarrantyInMonths(), battery.getPrice(), battery.getCapacity());
             return "Battery Added Successfully";
-        }catch (Exception e){
+        } catch (Exception e) {
             return e.getMessage();
         }
     }

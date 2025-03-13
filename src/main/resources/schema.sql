@@ -30,20 +30,22 @@ CREATE TABLE IF NOT EXISTS ${company}.inverter (
     created_at BIGINT NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS ${company}.Price (
-    id SERIAL PRIMARY KEY ,
-    name VARCHAR(255),
-    unit VARCHAR(50),
-    msg VARCHAR (255),
-    price DOUBLE PRECISION
+CREATE TABLE IF NOT EXISTS ${company}.price (
+    id SERIAL PRIMARY KEY,
+    sub_id VARCHAR(255) NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    updated_at BIGINT NOT NULL,
+    option_state_pricing JSON
 );
 
 CREATE TABLE IF NOT EXISTS ${company}.warehouse (
     id SERIAL PRIMARY KEY,
-    company_name VARCHAR(255),
+    warehouse_name VARCHAR(255),
     address VARCHAR(255),
     postcode INTEGER,
-    state VARCHAR(3),  -- Store the State enum as a string
+    state VARCHAR(3),
+    latitude VARCHAR(255)
+    longitude VARCHAR(255)-- Store the State enum as a string
     is_active BOOLEAN,
     updated_at BIGINT,
     created_at BIGINT

@@ -18,10 +18,8 @@ public class WarehouseService {
         this.warehouseUtil = warehouseUtil;
     }
 
-    public PageResult<Warehouse> getWarehouse(GeneralQueryRequest generalQueryRequest) {
-        return warehouseUtil.getWarehouse(generalQueryRequest.getCompany(), generalQueryRequest.getFilter(),
-                generalQueryRequest.getOrderByColumns(), generalQueryRequest.getPageNumber(),
-                generalQueryRequest.getPageSize(), generalQueryRequest.getColumns());
+    public PageResult<Warehouse> getWarehouse(String company) {
+        return warehouseUtil.getWarehouse(company);
     }
 
     public String insertWarehouse(PostQueryRequest postQueryRequest) {

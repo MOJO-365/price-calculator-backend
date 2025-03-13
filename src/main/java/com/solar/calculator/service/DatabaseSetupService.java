@@ -19,11 +19,11 @@ public class DatabaseSetupService {
     @Value("classpath:sample-data.sql")
     private Resource sampleDataResource;
 
-    private  GlobalDatabase globalDatabase;
+    private GlobalDatabase globalDatabase;
 
     @Autowired
-    public DatabaseSetupService(GlobalDatabase globalDatabase){
-        this.globalDatabase=globalDatabase;
+    public DatabaseSetupService(GlobalDatabase globalDatabase) {
+        this.globalDatabase = globalDatabase;
     }
 
     public String setupDatabase(String company) {
@@ -40,10 +40,10 @@ public class DatabaseSetupService {
     public String addSampleData(String company) {
         try {
             String sql = Files.readString(sampleDataResource.getFile().toPath());
-            sql =sql.replace("${company}", company);
+            sql = sql.replace("${company}", company);
             globalDatabase.executeUpdate(sql);
             return "Database Updated Successfully";
-        }catch (Exception e){
+        } catch (Exception e) {
             return e.getMessage();
         }
     }

@@ -1,5 +1,6 @@
 package com.solar.calculator.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -12,7 +13,10 @@ public class Inverter {
     String model;
     String manufacturer;
     Integer price;
+    @JsonProperty("warranty_in_months")
     Integer warrantyInMonths;
-    Long updated_at;
-    Long created_at;
+    @JsonProperty("updated_at")
+    Long updatedAt;
+    @JsonProperty("created_at")
+    Long createdAt;
 }

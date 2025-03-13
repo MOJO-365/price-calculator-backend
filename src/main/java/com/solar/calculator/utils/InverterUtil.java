@@ -20,10 +20,10 @@ public class InverterUtil {
 
     GlobalDatabase globalDatabase;
 
-    private static final String INVERTER_TABLE="inverter";
+    private static final String INVERTER_TABLE = "inverter";
 
-    public InverterUtil(GlobalDatabase globalDatabase){
-        this.globalDatabase=globalDatabase;
+    public InverterUtil(GlobalDatabase globalDatabase) {
+        this.globalDatabase = globalDatabase;
     }
 
 
@@ -31,18 +31,17 @@ public class InverterUtil {
                                             Map<String, String> orderByColumns, Map<String, Pair<GlobalDatabase.FilterType,
             Object>> filter) {
 
-        return  globalDatabase.executePaginatedQuery(company,INVERTER_TABLE,columns,orderByColumns,pageNumber,pageSize,filter,new InverterRowMapper());
+        return globalDatabase.executePaginatedQuery(company, INVERTER_TABLE, columns, orderByColumns, pageNumber, pageSize, filter, new InverterRowMapper());
     }
 
     public String addInverter(String company, Inverter inverter) {
-        String sql=String.format("INSERT INTO %s.inverter (model, manufacturer, price, warranty_in_months,updated_at,created_at)" +
-                "VALUES(?,?,?,?,?,?)",company);
+        String sql = String.format("INSERT INTO %s.inverter (model, manufacturer, price, warranty_in_months,updated_at,createdAt)" +
+                "VALUES(?,?,?,?,?,?)", company);
         try {
-            globalDatabase.executeUpdate(sql,inverter.getModel(),inverter.getManufacturer(),inverter.getPrice(),
-                    inverter.getWarrantyInMonths(),LocalDateTime.now().atZone(ZoneId.of("UTC")).toInstant().getEpochSecond(),LocalDateTime.now().atZone(ZoneId.of("UTC")).toInstant().getEpochSecond());
+            globalDatabase.executeUpdate(sql, inverter.getModel(), inverter.getManufacturer(), inverter.getPrice(),
+                    inverter.getWarrantyInMonths(), LocalDateTime.now().atZone(ZoneId.of("UTC")).toInstant().getEpochSecond(), LocalDateTime.now().atZone(ZoneId.of("UTC")).toInstant().getEpochSecond());
             return "Inverter Added Successfully";
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             return e.getMessage();
         }
     }
@@ -71,10 +70,10 @@ public class InverterUtil {
                 inverter.setWarrantyInMonths(rs.getInt("warranty_in_months"));
             }
             if (columnExists(metaData, "updated_at")) {
-                inverter.setUpdated_at(rs.getLong("updated_at"));
+                inverter.setUpdatedAt(rs.getLong("updated_at"));
             }
-            if (columnExists(metaData, "created_at")) {
-                inverter.setCreated_at(rs.getLong("created_at"));
+            if (columnExists(metaData, "createdAt")) {
+                inverter.setCreatedAt(rs.getLong("createdAt"));
             }
 
             return inverter;
@@ -90,6 +89,4 @@ public class InverterUtil {
             return false;
         }
     }
-
-
 }

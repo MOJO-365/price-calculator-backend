@@ -2,7 +2,6 @@ package com.solar.calculator.config;
 
 import com.solar.calculator.dto.PageResult;
 import jakarta.annotation.PostConstruct;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.util.Pair;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;

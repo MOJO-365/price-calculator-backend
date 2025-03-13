@@ -5,7 +5,6 @@ import com.solar.calculator.config.GlobalDatabase;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.data.util.Pair;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -22,18 +21,18 @@ public class GeneralQueryRequest {
 
     @Min(value = 0, message = "Page number must be 0 or greater")
     @JsonProperty("page_number")
-     Integer pageNumber ;
+    Integer pageNumber;
     @Min(value = 1, message = "Page size must be at least 1")
     @JsonProperty("page_size")
-     Integer pageSize;
+    Integer pageSize;
     @NotBlank(message = "Company name is required")
     @JsonProperty("company")
-     String company;
+    String company;
     @NotEmpty(message = "Columns list cannot be empty")
     @JsonProperty("columns")
-     List<String> columns;
+    List<String> columns;
     @JsonProperty("filter")
-     Map<String, Pair<GlobalDatabase.FilterType, Object>> filter;
+    Map<String, Pair<GlobalDatabase.FilterType, Object>> filter;
     @JsonProperty("order_by_columns")
-     Map<String, String> orderByColumns;
+    Map<String, String> orderByColumns;
 }

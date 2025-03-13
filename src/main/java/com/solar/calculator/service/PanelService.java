@@ -18,17 +18,17 @@ public class PanelService {
     PanelUtil panelUtil;
 
     @Autowired
-    public PanelService(PanelUtil panelUtil){
-        this.panelUtil=panelUtil;
+    public PanelService(PanelUtil panelUtil) {
+        this.panelUtil = panelUtil;
     }
 
     public PageResult<Panel> getPanel(String company, List<String> columns, Map<String, String> orderByColumns,
                                       int pageNumber, int pageSize,
-                                      Map<String, Pair<GlobalDatabase.FilterType, Object>> filters){
-        return panelUtil.getPanel(company,columns,orderByColumns,pageNumber,pageSize,filters);
+                                      Map<String, Pair<GlobalDatabase.FilterType, Object>> filters) {
+        return panelUtil.getPanel(company, columns, orderByColumns, pageNumber, pageSize, filters);
     }
 
-    public String addPanel(PostQueryRequest postQueryRequest){
-        return panelUtil.addPanel(postQueryRequest.getCompany(),postQueryRequest.getPanel());
+    public String addPanel(PostQueryRequest postQueryRequest) {
+        return panelUtil.addPanel(postQueryRequest.getCompany(), postQueryRequest.getPanel());
     }
 }

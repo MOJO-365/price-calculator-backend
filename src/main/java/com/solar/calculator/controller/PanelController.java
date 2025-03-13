@@ -11,6 +11,7 @@ import org.springframework.web.context.request.async.DeferredResult;
 
 @RestController
 @RequestMapping("/api/v1/panel")
+@CrossOrigin("*")
 public class PanelController {
 
     PanelService panelService;
@@ -34,11 +35,11 @@ public class PanelController {
     }
 
     @PostMapping("/add-panel")
-    public DeferredResult<String> addPanel(@RequestBody PostQueryRequest postQueryRequest){
-        return DeferredResultUtil.executeAsync(()->{
+    public DeferredResult<String> addPanel(@RequestBody PostQueryRequest postQueryRequest) {
+        return DeferredResultUtil.executeAsync(() -> {
             try {
                 return panelService.addPanel(postQueryRequest);
-            }catch (Exception e){
+            } catch (Exception e) {
                 return e.getMessage();
             }
         });

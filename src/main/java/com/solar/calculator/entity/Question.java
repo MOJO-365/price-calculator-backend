@@ -1,4 +1,5 @@
 package com.solar.calculator.entity;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.NoArgsConstructor;
