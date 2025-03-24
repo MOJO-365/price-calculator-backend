@@ -19,9 +19,9 @@ public class GlobalDatabase {
     private static final List<Connection> connectionPool = new ArrayList<>();
     private static GlobalDatabase instance;
 
-    private static final String DATABASE_URL=System.getenv("url");
-    private static final String USERNAME=System.getenv("username");
-    private static final String PASSWORD=System.getenv("password");
+    private static final String DATABASE_URL="jdbc:postgresql://ccba8a0vn4fb2p.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com:5432/d56u92rh5pn7dl";
+    private static final String USERNAME="u4aemm9ip8eij1";
+    private static final String PASSWORD="pff8bd0a590b2a5d0eec25b8bbf4615d24fb6196f5b022100cc001cdd711e8b93";
 
     public GlobalDatabase() {
     }
