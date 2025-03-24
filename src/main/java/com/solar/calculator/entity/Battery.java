@@ -15,6 +15,12 @@ public class Battery {
     String manufacturer;
     @JsonProperty("warranty_in_months")
     Integer warrantyInMonths;
+    @JsonProperty("phase")
+    Phase phase;
     Integer price;
     Integer capacity;
+
+    public enum Phase{
+        SINGLE,DOUBLE,THREE
+    }
 }

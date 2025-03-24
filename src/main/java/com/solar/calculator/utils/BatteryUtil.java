@@ -33,11 +33,11 @@ public class BatteryUtil {
     }
 
     public String addBattery(String company, Battery battery) {
-        String sql = String.format("INSERT INTO %s.battery (model, manufacturer, warranty_in_months, price, capacity_in_watt) \n" +
+        String sql = String.format("INSERT INTO %s.battery (model, manufacturer, warranty_in_months, price, capacity_in_watt,phase) \n" +
                 "VALUES (?, ?, ?, ?, ?);", company);
         try {
             globalDatabase.executeUpdate(sql, battery.getModelName(), battery.getManufacturer(),
-                    battery.getWarrantyInMonths(), battery.getPrice(), battery.getCapacity());
+                    battery.getWarrantyInMonths(), battery.getPrice(), battery.getCapacity(),battery.getPhase());
             return "Battery Added Successfully";
         } catch (Exception e) {
             return e.getMessage();
@@ -57,6 +57,7 @@ public class BatteryUtil {
             Integer warrantyInMonths = null;
             Integer price = null;
             Integer capacity = null;
+            Battery.Phase phase=null;
 
             if (columnExists(metaData, "id")) {
                 id = rs.getInt("id");
@@ -82,7 +83,11 @@ public class BatteryUtil {
                 capacity = rs.getInt("capacity_in_watt");
             }
 
-            return new Battery(id, modelName, manufacturer, warrantyInMonths, price, capacity);
+            if (columnExists(metaData, "phase")){
+                phase= Battery.Phase.valueOf(rs.getString("phase"));
+            }
+
+            return new Battery(id, modelName, manufacturer, warrantyInMonths, phase, price, capacity);
         }
 
         private boolean columnExists(ResultSetMetaData metaData, String columnName) throws SQLException {

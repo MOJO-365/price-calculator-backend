@@ -13,6 +13,12 @@ public class Inverter {
     String model;
     String manufacturer;
     Integer price;
+    @JsonProperty("phase")
+    Battery.Phase phase;
+    @JsonProperty("mppt")
+    Integer mppt;
+    @JsonProperty("is_hybrid")
+    Boolean isHybrid;
     @JsonProperty("warranty_in_months")
     Integer warrantyInMonths;
     @JsonProperty("updated_at")

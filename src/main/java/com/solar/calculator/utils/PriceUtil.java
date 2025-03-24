@@ -37,10 +37,15 @@ public class PriceUtil {
 
 
     public String insertPrice(String company, Price price) {
-        String sql = String.format("INSERT INTO %s.Price (name, sub_id, option_state_pricing,updated_at) VALUES (?, ?,?::json,?);", company);
+        String sql = String.format("INSERT INTO %s.Price (name, sub_id, nsw,qld,act,vic,wa,sa,tas,nt,jbt,updated_at,msg) VALUES (?, ?,?::json,?::json,?::json,?::json,?::json,?::json,?::json,?::json,?::json,?,?);", company);
         try {
-            globalDatabase.executeUpdate(sql, price.getName(), price.getSubId(), objectMapper.writeValueAsString(price.getStatePricing()),
-                    LocalDateTime.now().atZone(ZoneId.of("UTC")).toInstant().getEpochSecond());
+            globalDatabase.executeUpdate(sql, price.getName(), price.getSubId(), objectMapper.writeValueAsString(price.getNsw()),
+                    objectMapper.writeValueAsString(price.getQld()),objectMapper.writeValueAsString(price.getAct()),
+                    objectMapper.writeValueAsString(price.getVic()),objectMapper.writeValueAsString(price.getWa()),
+                    objectMapper.writeValueAsString(price.getSa()),objectMapper.writeValueAsString(price.getTas()),
+                    objectMapper.writeValueAsString(price.getNt()),objectMapper.writeValueAsString(price.getJbt()),
+                    LocalDateTime.now().atZone(ZoneId.of("UTC")).toInstant().getEpochSecond(),
+                    price.getMessage());
             return "Price Added Successfully";
         } catch (Exception e) {
             return e.getMessage();
@@ -55,9 +60,18 @@ public class PriceUtil {
             price.setName(rs.getString("name"));
             price.setSubId(rs.getString("sub_id"));
             price.setUpdatedAt(rs.getLong("updated_at"));
+            price.setMessage(rs.getString("msg"));
             try {
-                price.setStatePricing(objectMapper.readValue(rs.getString("msg"), new TypeReference<HashMap<String, Price.StatePricing>>() {
-                }));
+                price.setNsw(objectMapper.readValue(rs.getString("nsw"), new TypeReference<Price.UnitPrice>(){}));
+                price.setQld(objectMapper.readValue(rs.getString("qld"), new TypeReference<Price.UnitPrice>(){}));
+                price.setAct(objectMapper.readValue(rs.getString("act"), new TypeReference<Price.UnitPrice>(){}));
+                price.setVic(objectMapper.readValue(rs.getString("vic"), new TypeReference<Price.UnitPrice>(){}));
+                price.setWa(objectMapper.readValue(rs.getString("wa"), new TypeReference<Price.UnitPrice>(){}));
+                price.setSa(objectMapper.readValue(rs.getString("sa"), new TypeReference<Price.UnitPrice>(){}));
+                price.setTas(objectMapper.readValue(rs.getString("tas"), new TypeReference<Price.UnitPrice>(){}));
+                price.setNt(objectMapper.readValue(rs.getString("nt"), new TypeReference<Price.UnitPrice>(){}));
+                price.setJbt(objectMapper.readValue(rs.getString("jbt"), new TypeReference<Price.UnitPrice>(){}));
+
             } catch (JsonProcessingException e) {
                 throw new RuntimeException(e);
             }
@@ -75,9 +89,18 @@ public class PriceUtil {
                 price.setName(rs.getString("name"));
                 price.setSubId(rs.getString("sub_id"));
                 price.setUpdatedAt(rs.getLong("updated_at"));
+                price.setMessage(rs.getString("msg"));
                 try {
-                    price.setStatePricing(objectMapper.readValue(rs.getString("option_state_pricing"), new TypeReference<HashMap<String, Price.StatePricing>>() {
-                    }));
+                    price.setNsw(objectMapper.readValue(rs.getString("nsw"), new TypeReference<Price.UnitPrice>(){}));
+                    price.setQld(objectMapper.readValue(rs.getString("qld"), new TypeReference<Price.UnitPrice>(){}));
+                    price.setAct(objectMapper.readValue(rs.getString("act"), new TypeReference<Price.UnitPrice>(){}));
+                    price.setVic(objectMapper.readValue(rs.getString("vic"), new TypeReference<Price.UnitPrice>(){}));
+                    price.setWa(objectMapper.readValue(rs.getString("wa"), new TypeReference<Price.UnitPrice>(){}));
+                    price.setSa(objectMapper.readValue(rs.getString("sa"), new TypeReference<Price.UnitPrice>(){}));
+                    price.setTas(objectMapper.readValue(rs.getString("tas"), new TypeReference<Price.UnitPrice>(){}));
+                    price.setNt(objectMapper.readValue(rs.getString("nt"), new TypeReference<Price.UnitPrice>(){}));
+                    price.setJbt(objectMapper.readValue(rs.getString("jbt"), new TypeReference<Price.UnitPrice>(){}));
+
                 } catch (JsonProcessingException e) {
                     throw new RuntimeException(e);
                 }

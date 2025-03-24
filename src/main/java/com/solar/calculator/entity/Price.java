@@ -5,9 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.util.Pair;
-
-import java.util.HashMap;
+import lombok.RequiredArgsConstructor;
 
 @Data
 @AllArgsConstructor
@@ -19,23 +17,16 @@ public class Price {
     private String subId;
     @JsonProperty("updated_at")
     private long updatedAt;
-    @JsonProperty("state_pricing")
-    private HashMap<String, StatePricing> statePricing;
-
-    @Data
-    @AllArgsConstructor
-    @NoArgsConstructor
-    public static class StatePricing {
-        private UnitPrice nsw;
-        private UnitPrice qld;
-        private UnitPrice act;
-        private UnitPrice vic;
-        private UnitPrice wa;
-        private UnitPrice sa;
-        private UnitPrice tas;
-        private UnitPrice nt;
-        private UnitPrice jbt;
-    }
+    private String message;
+    private UnitPrice nsw;
+    private UnitPrice qld;
+    private UnitPrice act;
+    private UnitPrice vic;
+    private UnitPrice wa;
+    private UnitPrice sa;
+    private UnitPrice tas;
+    private UnitPrice nt;
+    private UnitPrice jbt;
 
     @Data
     @AllArgsConstructor
@@ -43,9 +34,16 @@ public class Price {
     public static class UnitPrice {
         private Price.UNIT key;
         private Double value;
+        private String name;
+        private String message;
+
+        public UnitPrice(Price.UNIT key,Double value){
+            this.key=key;
+            this.value=value;
+        }
     }
 
     public enum UNIT {
-        PANEL, FIXED, KM
+        PANEL, FIXED, KM, LUMPSUMP
     }
 }
