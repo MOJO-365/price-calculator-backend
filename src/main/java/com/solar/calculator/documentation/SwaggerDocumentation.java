@@ -10,7 +10,7 @@ import io.swagger.v3.oas.annotations.servers.Server;
 
 @Configuration
 @OpenAPIDefinition(
-        info =@Info(
+        info = @Info(
                 title = "Solar Calculator",
                 version = "1.0",
                 contact = @Contact(

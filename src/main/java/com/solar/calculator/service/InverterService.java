@@ -11,18 +11,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 @Service
 public class InverterService {
 
-   InverterUtil inverterUtil;
+    InverterUtil inverterUtil;
 
-    public InverterService(InverterUtil inverterUtil){
-        this.inverterUtil=inverterUtil;
+    public InverterService(InverterUtil inverterUtil) {
+        this.inverterUtil = inverterUtil;
     }
 
-    public PageResult<Inverter> getInverter(GeneralQueryRequest generalQueryRequest){
-        return inverterUtil.getInverter(generalQueryRequest.getCompany(),generalQueryRequest.getPageNumber(),
-                generalQueryRequest.getPageSize(),generalQueryRequest.getColumns(),generalQueryRequest.getOrderByColumns(),generalQueryRequest.getFilter());
+    public PageResult<Inverter> getInverter(GeneralQueryRequest generalQueryRequest) {
+        return inverterUtil.getInverter(generalQueryRequest.getCompany(), generalQueryRequest.getPageNumber(),
+                generalQueryRequest.getPageSize(), generalQueryRequest.getColumns(), generalQueryRequest.getOrderByColumns(), generalQueryRequest.getFilter());
     }
 
-    public String addInverter(@RequestBody PostQueryRequest postQueryRequest){
-        return inverterUtil.addInverter(postQueryRequest.getCompany(),postQueryRequest.getInverter());
+    public String addInverter(@RequestBody PostQueryRequest postQueryRequest) {
+        return inverterUtil.addInverter(postQueryRequest.getCompany(), postQueryRequest.getInverter());
     }
 }

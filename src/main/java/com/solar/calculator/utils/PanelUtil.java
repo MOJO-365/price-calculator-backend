@@ -33,13 +33,12 @@ public class PanelUtil {
     }
 
     public String addPanel(String company, Panel panel) {
-        String sql =String.format("INSERT INTO %s.panel (model, manufacturer, warranty_in_months, watt, price, created_at, updated_at) \nVALUES" +
-                "(?,?, ?, ?,?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);",company);
+        String sql = String.format("INSERT INTO %s.panel (model, manufacturer, warranty_in_months, watt, price, createdAt, updated_at) \nVALUES" +
+                "(?,?, ?, ?,?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);", company);
         try {
             globalDatabase.executeUpdate(sql, panel.getModel(), panel.getManufacturer(), panel.getWarrantyInMonths(), panel.getWatt(), panel.getPrice());
-            return  "Successfully stored in database";
-        }
-        catch (Exception e){
+            return "Successfully stored in database";
+        } catch (Exception e) {
             return e.getMessage();
         }
     }
