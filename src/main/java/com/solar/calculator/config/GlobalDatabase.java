@@ -20,9 +20,9 @@ public class GlobalDatabase {
     private static final List<Connection> connectionPool = new ArrayList<>();
     private static GlobalDatabase instance;
 
-    private static final String DATABASE_URL="jdbc:postgresql://ccba8a0vn4fb2p.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com:5432/d56u92rh5pn7dl";
-    private static final String USERNAME="u4aemm9ip8eij1";
-    private static final String PASSWORD="pff8bd0a590b2a5d0eec25b8bbf4615d24fb6196f5b022100cc001cdd711e8b93";
+    private static final String DATABASE_URL="jdbc:postgresql://x9c37t.stackhero-network.com:7133/admin";
+    private static final String USERNAME="admin";
+    private static final String PASSWORD="gjjobCDbWU3TlSpit3Kkfa1fzUN2iJgv";
 
     public GlobalDatabase() {
     }
