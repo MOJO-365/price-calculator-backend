@@ -1,6 +1,7 @@
 package com.solar.calculator.utils;
 
 import com.solar.calculator.config.GlobalDatabase;
+import com.solar.calculator.dto.GeneralQueryRequest;
 import com.solar.calculator.dto.PageResult;
 import com.solar.calculator.entity.Battery;
 import com.solar.calculator.entity.Inverter;
@@ -29,8 +30,7 @@ public class InverterUtil {
 
 
     public PageResult<Inverter> getInverter(String company, Integer pageNumber, Integer pageSize, List<String> columns,
-                                            Map<String, String> orderByColumns, Map<String, Pair<GlobalDatabase.FilterType,
-            Object>> filter) {
+                                            Map<String, String> orderByColumns, Map<String, GeneralQueryRequest.FilterCriteria> filter) {
 
         return globalDatabase.executePaginatedQuery(company, INVERTER_TABLE, columns, orderByColumns, pageNumber, pageSize, filter, new InverterRowMapper());
     }

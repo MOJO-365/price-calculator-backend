@@ -1,6 +1,7 @@
 package com.solar.calculator.utils;
 
 import com.solar.calculator.config.GlobalDatabase;
+import com.solar.calculator.dto.GeneralQueryRequest;
 import com.solar.calculator.dto.PageResult;
 import com.solar.calculator.entity.Panel;
 import org.springframework.data.util.Pair;
@@ -27,7 +28,7 @@ public class PanelUtil {
 
     public PageResult<Panel> getPanel(String company, List<String> columns, Map<String, String> orderByColumns,
                                       int pageNumber, int pageSize,
-                                      Map<String, Pair<GlobalDatabase.FilterType, Object>> filters) {
+                                      Map<String, GeneralQueryRequest.FilterCriteria> filters) {
         return globalDatabase.executePaginatedQuery(company, PANEL_TABLE, columns, orderByColumns, pageNumber,
                 pageSize, filters, new PanelRowMapper());
     }

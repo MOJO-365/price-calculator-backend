@@ -32,7 +32,17 @@ public class GeneralQueryRequest {
     @JsonProperty("columns")
     List<String> columns;
     @JsonProperty("filter")
-    Map<String, Pair<GlobalDatabase.FilterType, Object>> filter;
+    Map<String, FilterCriteria> filter;
     @JsonProperty("order_by_columns")
     Map<String, String> orderByColumns;
+
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class FilterCriteria {
+        private GlobalDatabase.FilterType filterType;
+        private Object value1;
+        private  Object value2;
+    }
+
 }

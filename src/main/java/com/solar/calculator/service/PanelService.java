@@ -1,6 +1,7 @@
 package com.solar.calculator.service;
 
 import com.solar.calculator.config.GlobalDatabase;
+import com.solar.calculator.dto.GeneralQueryRequest;
 import com.solar.calculator.dto.PageResult;
 import com.solar.calculator.dto.PostQueryRequest;
 import com.solar.calculator.entity.Panel;
@@ -24,7 +25,7 @@ public class PanelService {
 
     public PageResult<Panel> getPanel(String company, List<String> columns, Map<String, String> orderByColumns,
                                       int pageNumber, int pageSize,
-                                      Map<String, Pair<GlobalDatabase.FilterType, Object>> filters) {
+                                      Map<String, GeneralQueryRequest.FilterCriteria> filters) {
         return panelUtil.getPanel(company, columns, orderByColumns, pageNumber, pageSize, filters);
     }
 
