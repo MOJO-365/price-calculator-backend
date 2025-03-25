@@ -1,6 +1,7 @@
 package com.solar.calculator.utils;
 
 import com.solar.calculator.config.GlobalDatabase;
+import com.solar.calculator.dto.GeneralQueryRequest;
 import com.solar.calculator.dto.PageResult;
 import com.solar.calculator.entity.Battery;
 import com.solar.calculator.service.BatteryService;
@@ -28,7 +29,7 @@ public class BatteryUtil {
     }
 
 
-    public PageResult<Battery> getBattery(String company, Integer pageNumber, Integer pageSize, List<String> columns, Map<String, Pair<GlobalDatabase.FilterType, Object>> filter, Map<String, String> orderByColumns) {
+    public PageResult<Battery> getBattery(String company, Integer pageNumber, Integer pageSize, List<String> columns, Map<String, GeneralQueryRequest.FilterCriteria> filter, Map<String, String> orderByColumns) {
         return globalDatabase.executePaginatedQuery(company, BATTERY_TABLE, columns, orderByColumns, pageNumber, pageSize, filter, new BatteryRowMapper());
     }
 

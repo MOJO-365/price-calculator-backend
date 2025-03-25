@@ -1,5 +1,6 @@
 package com.solar.calculator.config;
 
+import com.solar.calculator.dto.GeneralQueryRequest;
 import com.solar.calculator.dto.PageResult;
 import jakarta.annotation.PostConstruct;
 import org.springframework.data.util.Pair;
@@ -85,13 +86,13 @@ public class GlobalDatabase {
     }
 
     public enum FilterType {
-        EQUALS, CONTAINS, GREATER_THAN, LESS_THAN, STARTS_WITH, ENDS_WITH;
+        EQUALS, CONTAINS, GREATER_THAN, GREATER_THAN_EQUAL_TO, LESS_THAN_EQUAL_TO, LESS_THAN, STARTS_WITH, ENDS_WITH, BETWEEN;
     }
 
     public <T> PageResult<T> executePaginatedQuery(String companyName, String tableName, List<String> columns,
                                                    Map<String, String> orderByColumns,
                                                    int pageNumber, int pageSize,
-                                                   Map<String, Pair<FilterType, Object>> filters,
+                                                   Map<String, GeneralQueryRequest.FilterCriteria> filters,
                                                    RowMapper<T> rowMapper) {
 
         String sanitizedTableName = sanitizeIdentifier(tableName);
@@ -131,21 +132,40 @@ public class GlobalDatabase {
         return new PageResult<>(content, pageNumber, pageSize, totalElements, totalPages);
     }
 
-    private String buildWhereClause(Map<String, Pair<FilterType, Object>> filters) {
+    private String buildWhereClause(Map<String, GeneralQueryRequest.FilterCriteria> filters) {
         if (filters == null || filters.isEmpty()) {
             return "";
         }
 
         List<String> conditions = new ArrayList<>();
-        for (Map.Entry<String, Pair<FilterType, Object>> entry : filters.entrySet()) {
+        for (Map.Entry<String, GeneralQueryRequest.FilterCriteria> entry : filters.entrySet()) {
             String column = sanitizeIdentifier(entry.getKey());
-            FilterType filterType = entry.getValue().getFirst();
-            Object value = entry.getValue().getSecond();
+            FilterType filterType = entry.getValue().getFilterType();
+            Object value = entry.getValue().getValue1();
+            Object value2 = entry.getValue().getValue2();
 
             switch (filterType) {
-                case EQUALS:
-                    conditions.add(column + " = '" + value + "'");
+                case EQUALS: {
+                    if (value instanceof List<?>) {
+                        int size = ((List<?>) value).size() - 1;
+                        StringBuilder sb = new StringBuilder("( ");
+                        for (Object obj : (List) value) {
+                            if (size == 0) {
+                                sb.append(column + " = '" + obj + "' )");
+                            }
+                            else {
+                                sb.append(column + " = '" + obj + "' OR ");
+                            }
+                            size--;
+
+                        }
+                        conditions.add(sb.toString());
+                    }
+                    else {
+                        conditions.add(column + " = '" + value + "'");
+                    }
                     break;
+                }
                 case CONTAINS:
                     conditions.add(column + " LIKE '%" + value + "%'");
                     break;
@@ -161,6 +181,14 @@ public class GlobalDatabase {
                 case ENDS_WITH:
                     conditions.add(column + " LIKE '%" + value + "'");
                     break;
+                case GREATER_THAN_EQUAL_TO:
+                    conditions.add(column + " >= '" + value + "'");
+                    break;
+                case LESS_THAN_EQUAL_TO:
+                    conditions.add(column + " <= '" + value + "'");
+                    break;
+                case BETWEEN:
+                    conditions.add(column + " BETWEEN '" + value +"' AND '"+value2+"'" );
             }
         }
         return " WHERE " + String.join(" AND ", conditions);
