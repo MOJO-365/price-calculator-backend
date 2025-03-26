@@ -11,6 +11,7 @@ import org.springframework.web.context.request.async.DeferredResult;
 
 @RestController
 @RequestMapping("/api/v1/inverter")
+@CrossOrigin("*")
 public class InverterController {
 
     InverterService inverterService;
