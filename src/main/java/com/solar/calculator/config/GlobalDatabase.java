@@ -3,6 +3,7 @@ package com.solar.calculator.config;
 import com.solar.calculator.dto.GeneralQueryRequest;
 import com.solar.calculator.dto.PageResult;
 import jakarta.annotation.PostConstruct;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.util.Pair;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
@@ -19,10 +20,12 @@ public class GlobalDatabase {
     private static final int MAX_POOL_SIZE = 10;
     private static final List<Connection> connectionPool = new ArrayList<>();
     private static GlobalDatabase instance;
-
-    private static final String DATABASE_URL=System.getenv("url");
-    private static final String USERNAME=System.getenv("username");
-    private static final String PASSWORD=System.getenv("password");
+    @Value("${database.url}")
+    String DATABASE_URL;
+    @Value("${database.username}")
+    String USERNAME;
+    @Value("${database.password}")
+    String PASSWORD;
 
     public GlobalDatabase() {
     }
@@ -39,6 +42,7 @@ public class GlobalDatabase {
     }
 
     private Connection createConnection() throws SQLException {
+
         return DriverManager.getConnection(DATABASE_URL, USERNAME, PASSWORD);
     }
 
