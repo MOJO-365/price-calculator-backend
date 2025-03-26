@@ -36,13 +36,13 @@ public class InverterUtil {
     }
 
     public String addInverter(String company, Inverter inverter) {
-        String sql = String.format("INSERT INTO %s.inverter (model, manufacturer, price, warranty_in_months,updated_at,createdAt,phase,mppt,is_hybrid)" +
-                "VALUES(?,?,?,?,?,?)", company);
+        String sql = String.format("INSERT INTO %s.inverter (model, manufacturer, price, warranty_in_months,updated_at,createdAt,phase,mppt,is_hybrid,watt)" +
+                "VALUES(?,?,?,?,?,?,?)", company);
         try {
             globalDatabase.executeUpdate(sql, inverter.getModel(), inverter.getManufacturer(), inverter.getPrice(),
                     inverter.getWarrantyInMonths(), LocalDateTime.now().atZone(ZoneId.of("UTC")).toInstant().getEpochSecond(),
                     LocalDateTime.now().atZone(ZoneId.of("UTC")).toInstant().getEpochSecond(), inverter.getPhase(),
-                    inverter.getMppt(),inverter.getIsHybrid());
+                    inverter.getMppt(),inverter.getIsHybrid(), inverter.getWatt());
             return "Inverter Added Successfully";
         } catch (Exception e) {
             return e.getMessage();
@@ -86,6 +86,9 @@ public class InverterUtil {
             }
             if(columnExists(metaData,"is_hybrid")){
                 inverter.setIsHybrid(Boolean.parseBoolean(rs.getString("is_hybrid")));
+            }
+            if(columnExists(metaData,"watt")){
+                inverter.setWatt(rs.getInt("watt"));
             }
 
             return inverter;
